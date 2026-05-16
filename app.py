@@ -6,6 +6,7 @@ from urllib.request import Request, urlopen
 
 
 def get_public_gists(user):
+    # Call GitHub's public gists endpoint for the requested user.
     request = Request(
         f"https://api.github.com/users/{user}/gists",
         headers={
@@ -25,6 +26,7 @@ def get_public_gists(user):
     except URLError as error:
         raise RuntimeError(f"GitHub API request failed: {error.reason}") from error
 
+    # Return only the fields this exercise needs, keeping the API response small and clear.
     return [
         {
             "id": gist["id"],
@@ -54,6 +56,7 @@ class GistHandler(BaseHTTPRequestHandler):
 
 
 def run():
+    # Default to port 8080 for the assignment, with an optional local override.
     port = int(os.environ.get("PORT", "8080"))
     server = HTTPServer(("0.0.0.0", port), GistHandler)
     print(f"listening on http://0.0.0.0:{port}")
@@ -61,6 +64,7 @@ def run():
 
 
 def handle_request(path, gist_fetcher):
+    # The exercise expects requests in the form /<USER>.
     user = path.lstrip("/")
 
     if not user or "/" in user:

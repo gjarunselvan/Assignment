@@ -19,6 +19,7 @@ class AppTests(unittest.TestCase):
 
         self.assertEqual(status, 200)
         self.assertEqual(body[0]["id"], "1")
+        self.assertEqual(body[0]["html_url"], "https://gist.github.com/octocat/1")
 
     def test_returns_not_found_for_missing_user(self):
         status, body = handle_request(
