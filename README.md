@@ -1,25 +1,24 @@
 # Operability Take-Home Exercise
 
 This solution provides a small HTTP API that returns the public GitHub gists for a requested user.
-The implementation is intentionally minimal so it is easy to review.
+The implementation is intentionally simple and uses only Python's standard library.
 
 ## Requirements
 
-- Rust toolchain
+- Python 3
 - Docker (optional, for containerised execution)
-- `curl` available on the host if you run the binary locally
 
 ## Run locally
 
-```bash
-cargo run
+```python
+python app.py
 ```
 
 The API listens on `http://localhost:8080`.
 You can override the port locally if `8080` is already in use:
 
-- PowerShell: `$env:PORT='18080'; cargo run`
-- Bash: `PORT=18080 cargo run`
+- PowerShell: `$env:PORT='18080'; python app.py`
+- Bash: `PORT=18080 python app.py`
 
 Example request:
 
@@ -29,8 +28,8 @@ curl http://localhost:8080/octocat
 
 ## Run tests
 
-```bash
-cargo test
+```python
+python -m unittest
 ```
 
 ## Build and run with Docker
@@ -50,5 +49,5 @@ docker run --rm -p 8080:8080 operability-assignment
 ## Notes on implementation
 
 - The app exposes `GET /{user}` and returns a simplified list of that user's public gists.
-- GitHub API calls are performed with `curl`.
-- Tests verify the endpoint logic without depending on live GitHub access.
+- GitHub API calls are made with `urllib.request`.
+- Tests verify the endpoint behavior without depending on live GitHub access.

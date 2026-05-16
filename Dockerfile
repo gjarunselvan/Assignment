@@ -1,21 +1,8 @@
-FROM rust:1.86 AS builder
+FROM python:3.12-slim
 WORKDIR /app
 
-COPY Cargo.toml .
-COPY Cargo.lock .
-COPY src ./src
-
-RUN cargo build --release
-
-FROM debian:bookworm-slim
-WORKDIR /app
-
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends curl ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY --from=builder /app/target/release/assignment /usr/local/bin/assignment
+COPY app.py .
 
 EXPOSE 8080
 
-CMD ["assignment"]
+CMD ["python", "app.py"]
