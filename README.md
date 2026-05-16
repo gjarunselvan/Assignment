@@ -1,7 +1,7 @@
 # Operability Take-Home Exercise
 
 This solution provides a small HTTP API that returns the public GitHub gists for a requested user.
-The server is intentionally small and dependency-light so it is easy to review and run.
+The implementation is intentionally minimal so it is easy to review.
 
 ## Requirements
 
@@ -49,6 +49,6 @@ docker run --rm -p 8080:8080 operability-assignment
 
 ## Notes on implementation
 
-- The server uses the Rust standard library TCP listener rather than a larger web framework.
-- GitHub API calls are performed with `curl`, which keeps the Rust dependency graph small and makes the runtime behaviour straightforward.
-- Tests stub the gist service so automated verification does not depend on live GitHub availability.
+- The app exposes `GET /{user}` and returns a simplified list of that user's public gists.
+- GitHub API calls are performed with `curl`.
+- Tests verify the endpoint logic without depending on live GitHub access.
